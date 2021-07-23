@@ -7,7 +7,7 @@ public class Turret : MonoBehaviour
     private Transform target;
     private float turnSpeed = 10f;
     private string enemyTag = "Enemy";
-    private float fireRate = 1f;
+    
     private float fireCountdown = 0f;
     
     
@@ -17,6 +17,7 @@ public class Turret : MonoBehaviour
 
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float range = 15f;
+    [SerializeField] private float fireRate = 1f;
     [SerializeField] private Transform partToRotate;
   
     // Start is called before the first frame update

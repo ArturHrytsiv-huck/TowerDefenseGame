@@ -2,20 +2,15 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 50f;
+    [SerializeField] private float speed = 50f;
+    [SerializeField] private float explosionRadius = 0f;
     private Transform target;
     public GameObject impactEffect;
     public void Seek(Transform target)
     {
         this.target = target;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if(target == null)
@@ -31,13 +26,44 @@ public class Bullet : MonoBehaviour
             HitTarget();
             return;
         }
+        transform.LookAt(target);
         transform.Translate(dir.normalized * distanceThisFrame, Space.World);
     }
     void HitTarget()
     {
         GameObject effectInstance = (GameObject)Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(target.gameObject);
         Destroy(effectInstance, 2f);
+        if (explosionRadius > 0f)
+        {
+            Explode();
+        }
+        else
+        {
+            Damage(target);
+        }
+        
+        
         Destroy(gameObject);
+    }
+
+    void Explode()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach(Collider collider in colliders)
+        {
+            if (collider.tag =="Enemy")
+            {
+                Damage(collider.transform);
+            }
+        }   
+    }
+    void Damage(Transform enemy)
+    {
+        Destroy(enemy.gameObject);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
 }
