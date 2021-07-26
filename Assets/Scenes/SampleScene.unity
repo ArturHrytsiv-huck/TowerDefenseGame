@@ -563,6 +563,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 975207f6d2d132b45b755a06ddcce92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standartTurret:
+    prefab: {fileID: 2595408320991519721, guid: 5ea93b9a4ee03dc4e850161718538d64, type: 3}
+    cost: 100
+  missleLauncher:
+    prefab: {fileID: 1456141543432044354, guid: e77a4eab12132d5479e10bed5c1e97d3, type: 3}
+    cost: 250
 --- !u!114 &397802935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -739,6 +745,7 @@ GameObject:
   - component: {fileID: 463937783}
   - component: {fileID: 463937782}
   - component: {fileID: 463937784}
+  - component: {fileID: 463937785}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -789,6 +796,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standartTurretPrefab: {fileID: 2595408320991519721, guid: 5ea93b9a4ee03dc4e850161718538d64, type: 3}
   missleLauncherTurretPrefab: {fileID: 1456141543432044354, guid: e77a4eab12132d5479e10bed5c1e97d3, type: 3}
+--- !u!114 &463937785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463937781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391b6ea74a9ab254989ab4f65ef4a1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMoney: 400
+  startLives: 20
 --- !u!1 &584129646
 GameObject:
   m_ObjectHideFlags: 0
@@ -1967,7 +1988,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 397802934}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: PusrchaseMissleLauncherTurret
+        m_MethodName: SelectMissleLauncherTurret
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2952,7 +2973,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 397802934}
         m_TargetAssemblyTypeName: Shop, Assembly-CSharp
-        m_MethodName: PusrchaseStandartTurret
+        m_MethodName: SelectStandartTurret
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

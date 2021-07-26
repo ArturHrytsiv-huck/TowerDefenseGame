@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
+    public TurretBlueprint standartTurret;
+    public TurretBlueprint missleLauncher;
     BuildManager buildManager;
 
     private void Start()
     {
         buildManager = BuildManager.instance;
     }
-    public void PusrchaseStandartTurret()
+    public void SelectStandartTurret()
     {
-        buildManager.SetTurretToBuild(buildManager.standartTurretPrefab);
+        buildManager.SelectTurretToBuild(standartTurret);
     }
-    public void PusrchaseMissleLauncherTurret()
+    public void SelectMissleLauncherTurret()
     {
-        buildManager.SetTurretToBuild(buildManager.missleLauncherTurretPrefab);
+        buildManager.SelectTurretToBuild(missleLauncher);
     }
 }
