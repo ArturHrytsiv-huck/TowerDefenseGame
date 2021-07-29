@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 50f;
     [SerializeField] private float explosionRadius = 0f;
+    [SerializeField] private int damage = 50;
     private Transform target;
     public GameObject impactEffect;
     public void Seek(Transform target)
@@ -59,7 +60,12 @@ public class Bullet : MonoBehaviour
     }
     void Damage(Transform enemy)
     {
-        Destroy(enemy.gameObject);
+        Enemy e = enemy.GetComponent<Enemy>();
+
+        if (e != null)
+        {
+            e.TakeDamage(damage);
+        }
     }
     private void OnDrawGizmosSelected()
     {

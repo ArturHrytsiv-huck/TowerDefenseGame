@@ -14,4 +14,5 @@ public class PlayerStats : MonoBehaviour
         money = startMoney;
         Lives = startLives;
     }
+
 }
