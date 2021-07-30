@@ -16,7 +16,11 @@ public class CameraController : MonoBehaviour
         {
             doMovement = !doMovement;
         }
-
+        if (GameManeger.GameIsOver)
+        {
+            this.enabled = false;
+            return;
+        }
         if (!doMovement)
         {
             return;

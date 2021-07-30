@@ -5,15 +5,17 @@ public class Turret : MonoBehaviour
     private Transform target;
     private float turnSpeed = 10f;
     private string enemyTag = "Enemy";
-    
+    private Enemy targetEnemy;
     private float fireCountdown = 0f;
-    
-    
+
+    public ParticleSystem impactEffect;
     public Transform firePoint;
     //for laser
+    [SerializeField] private int damageOverTime = 30;
     [SerializeField] private bool useLaser = false;
     [SerializeField] private LineRenderer lineRenderer;
-
+    [SerializeField] private float slowPct = .5f;
+    //bullet turrets
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float range = 15f;
     [SerializeField] private float fireRate = 1f;
@@ -44,6 +46,7 @@ public class Turret : MonoBehaviour
         if (nearestEnemy != null && shortestDistance <= range)
         {
             target = nearestEnemy.transform;
+            targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }
         else
         {
@@ -60,12 +63,13 @@ public class Turret : MonoBehaviour
                 if (lineRenderer.enabled)
                 {
                     lineRenderer.enabled = false;
+                    impactEffect.Stop();
                 }
             }
             return;
         }
         LockOnTarget();
-        /**/
+        
         if (useLaser)
         {
             Laser();
@@ -85,12 +89,22 @@ public class Turret : MonoBehaviour
     }
     void Laser()
     {
+        targetEnemy.GetComponent<Enemy>().TakeDamage(damageOverTime * Time.deltaTime);
+        targetEnemy.Slow(slowPct);
         if (!lineRenderer.enabled)
         {
             lineRenderer.enabled = true;
+            impactEffect.Play();
         }
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, target.position);
+
+        Vector3 dir = firePoint.position - target.position;
+
+        impactEffect.transform.position = target.position + dir.normalized;
+
+        impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+        
     }
     void LockOnTarget()
     {
