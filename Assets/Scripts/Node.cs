@@ -4,14 +4,17 @@ using UnityEngine.EventSystems;
 public class Node : MonoBehaviour
 {
     public Color hoverColor;
-    //public BuildManager manager;
+    public GameObject turret;
 
     [SerializeField] private Vector3 positionOffset;
-    public GameObject turret;
+    
     private Renderer rend;
     private Color startColor;
     private BuildManager buildManager;
-    // Start is called before the first frame update
+
+    [HideInInspector] public TurretBlueprint turretBlueprint;
+    [HideInInspector] public bool isUpgraded = false;
+
     void Start()
     {
         rend = GetComponent<Renderer>();
@@ -28,17 +31,60 @@ public class Node : MonoBehaviour
         {
             return;
         }
+        
+        if (turret != null)
+        {
+            //Debug.Log("Can`t build!");
+            buildManager.SelectNode(this);
+            return;
+        }
         if (!buildManager.CanBuild())
         {
             return;
         }
-        if (turret != null)
+
+        //Build a turret
+        BuildTurret(buildManager.GetTurrettoBuild());
+    }
+    void BuildTurret(TurretBlueprint blueprint)
+    {
+        if (PlayerStats.money < blueprint.cost)
         {
-            Debug.Log("Can`t build there!");
             return;
         }
-        //Build a turret
-        buildManager.BuildTurretOn(this);
+
+        PlayerStats.money -= blueprint.cost;
+        GameObject _turret = Instantiate(blueprint.prefab, GetBildPosotion(), Quaternion.identity);
+        turret = _turret;
+        turretBlueprint = blueprint;
+    }
+    public void UpgaradeTurret()
+    {
+        if (PlayerStats.money < turretBlueprint.upgradeCost)
+        {
+            Debug.Log("Not enought money");
+            return;
+        }
+
+        PlayerStats.money -= turretBlueprint.upgradeCost;
+
+        //Get riad of the old turret
+        Destroy(turret);
+
+        //Instantiate new upgraded turret
+        GameObject _turret = Instantiate(turretBlueprint.upgradedPrefab, GetBildPosotion(), Quaternion.identity);
+        turret = _turret;
+
+        isUpgraded = true;
+    }
+
+    public void SellTurret()
+    {
+        PlayerStats.money += turretBlueprint.GetSellAmount();
+
+        Destroy(turret);
+
+        turretBlueprint = null;
     }
     private void OnMouseEnter()
     {

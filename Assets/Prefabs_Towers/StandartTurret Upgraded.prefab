@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2595408320991690697}
   - component: {fileID: 1501770573760944524}
   m_Layer: 0
-  m_Name: StandartTurret
+  m_Name: StandartTurret Upgraded
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,9 +51,9 @@ MonoBehaviour:
   useLaser: 0
   lineRenderer: {fileID: 0}
   slowPct: 0.5
-  bulletPrefab: {fileID: 2933948976397382006, guid: 67b0083f239c84d4f81c5d486a0a9238, type: 3}
-  range: 15
-  fireRate: 1
+  bulletPrefab: {fileID: 2933948976397382006, guid: 090161289c14045438d64ec416a38404, type: 3}
+  range: 20
+  fireRate: 1.5
   partToRotate: {fileID: 3139912437550641918}
 --- !u!1 &2595408320991519723
 GameObject:

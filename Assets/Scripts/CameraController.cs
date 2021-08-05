@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private bool doMovement = true;
     private float panSpeed = 30f;
     private float panBorderThickness = 10f;
     private float scrollSpeed = 8f;
@@ -12,17 +11,9 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            doMovement = !doMovement;
-        }
         if (GameManeger.GameIsOver)
         {
             this.enabled = false;
-            return;
-        }
-        if (!doMovement)
-        {
             return;
         }
            
